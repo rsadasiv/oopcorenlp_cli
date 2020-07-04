@@ -1,0 +1,9 @@
+/target
+data/
+.class
+.dbeaver/
+.classpath
+.gitconfig
+.project
+.settings/
+TODO.txt
