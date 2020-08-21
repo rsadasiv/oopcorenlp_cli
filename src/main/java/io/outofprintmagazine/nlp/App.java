@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.outofprintmagazine.nlp.utils.TextUtils;
-import io.outofprintmagazine.util.ParameterStore;
+import io.outofprintmagazine.util.IParameterStore;
 import io.outofprintmagazine.util.ParameterStorePropertiesFile;
 
 /**
@@ -116,7 +116,7 @@ public class App {
 	}
 	
 	public void runAnalyzer(
-			ParameterStore parameterStore,
+			IParameterStore parameterStore,
 			List<String> customAnnotators,
 			Properties metadata,
 			String text,
@@ -154,7 +154,7 @@ public class App {
 		writeFile(outputPath, "AGGREGATES_" + docID + ".json", json.get("AGGREGATES"));
 	}
 		
-	protected ParameterStore loadParameterStore(String path, String fileName) throws IOException {
+	protected IParameterStore loadParameterStore(String path, String fileName) throws IOException {
 		return new ParameterStorePropertiesFile(path, fileName);
 	}
 	
