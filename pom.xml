@@ -4,59 +4,16 @@
 	<groupId>io.outofprintmagazine</groupId>
 	<artifactId>oopcorenlp_cli</artifactId>
 	<version>1.0</version>
+	<packaging>jar</packaging>
 	<name>OOP Core NLP CLI</name>
 	<description>CLI interface to oopcorenlp library</description>
-	<url>https://beta.outofprintmagazine.io</url>
-
-	<licenses>
-		<license>
-			<name>GPL-3.0-or-later</name>
-			<url>https://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
-		</license>
-	</licenses>
-	<organization>
-	    <name>Out Of Print Magazine</name>
-	    <url>http://beta.outofprintmagazine.io</url>
-	</organization>
-	<developers>
-		<developer>
-      		<id>rsadasiv</id>
-      		<name>Ram Sadasiv</name>
-      		<email>io.outofprintmagazine@gmail.com</email>
-		</developer>
-	</developers>
-	<scm>
-		<url>https://github.com/rsadasiv/oopcorenlp_cli.git</url>
-	</scm>
-	<issueManagement>
-		<system>Github</system>
-		<url>https://github.com/rsadasiv/oopcorenlp_cli.git/</url>
-	</issueManagement>
 	
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-		<java.release.version>11</java.release.version>
-		<java.version>1.8</java.version>
-		<maven-shade-plugin.version>3.2.3</maven-shade-plugin.version>
+	<parent>
+		<groupId>io.outofprintmagazine</groupId>
+		<artifactId>oopcorenlp_parent</artifactId>
+		<version>1.0</version>
+	</parent>
 		
-		<maven-site-plugin.version>3.7.1</maven-site-plugin.version>
-		<maven-fluido-skin.version>1.9</maven-fluido-skin.version>
-		<maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
-		<maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>		
-		<doxia-site-renderer.version>1.9.2</doxia-site-renderer.version>
-
-		<!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
-		<commons-cli.version>1.4</commons-cli.version>
-		
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-properties -->
-		<jackson.version>2.11.0</jackson.version>
-		
-		<oopcorenlp.version>1.0</oopcorenlp.version>
-	</properties>
-	
 	<dependencies>
 		
 		<dependency>
@@ -71,11 +28,10 @@
 		    <version>${commons-cli.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
 		<dependency>
 		    <groupId>commons-codec</groupId>
 		    <artifactId>commons-codec</artifactId>
-		    <version>1.14</version>
+		    <version>${commons-codec.version}</version>
 		</dependency>
 		
 		
@@ -101,17 +57,7 @@
 	
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven-compiler-plugin.version}</version>
-				<configuration>
-					<!-- <release>${java.release.version}</release> -->
-				    <source>${java.version}</source>
-				    <target>${java.version}</target>					
-				</configuration>
-			</plugin>	
-	      	
+      	
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -133,47 +79,8 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>${maven-site-plugin.version}</version>
-				<dependencies>
-					<dependency>
-            			<groupId>org.apache.maven.skins</groupId>
-            			<artifactId>maven-fluido-skin</artifactId>
-            			<version>${maven-fluido-skin.version}</version>
-          			</dependency>
-					<dependency>
-					    <groupId>org.apache.maven.doxia</groupId>
-					    <artifactId>doxia-site-renderer</artifactId>
-					    <version>${doxia-site-renderer.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
 		</plugins>
 
 	</build>
 	
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>${maven-project-info-reports-plugin.version}</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>${maven-javadoc-plugin.version}</version>
-		        <reportSets>
-		          <reportSet>
-		            <reports>
-						<report>javadoc-no-fork</report>
-						<report>test-javadoc-no-fork</report>
-		            </reports>
-		          </reportSet>
-		         </reportSets>				
-	      	</plugin>
-		</plugins>
-	</reporting>
 </project>
