@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -223,7 +224,7 @@ public class App {
 			fin = new FileInputStream(f);
 			return IOUtils.toString(
 	    		fin,
-	    		"utf-8"
+	    		StandardCharsets.UTF_8.name()
 			);
 		}
 		finally {
@@ -239,7 +240,7 @@ public class App {
 					new File(
 							path + System.getProperty("file.separator", "/") + fileName
 					),
-					"utf-8"
+					StandardCharsets.UTF_8.name()
 		);
 		List<String> retval = new ArrayList<String>();
 		for (String line : allLines) {
