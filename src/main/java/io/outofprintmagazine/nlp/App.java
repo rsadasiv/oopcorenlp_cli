@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,7 @@ public class App {
 		super();
 	}
 	
-	public static void main(String[] args) throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException, ParseException {
+	public static void main(String[] args) throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException, ParseException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		CommandLineParser parser = new DefaultParser();
 		Options options = new Options();
 		options.addOption( "a", "action", true, "REQUIRED. analyze or generate. analyze requires all parameters. generate requires outputPath." );
@@ -122,7 +123,7 @@ public class App {
 			Properties metadata,
 			String text,
 			String outputPath
-			) throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+			) throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		String cleanText = TextUtils.getInstance(parameterStore).processPlainUnicode(text);
 		generateDocID(cleanText, metadata);
 		writeOutput(
