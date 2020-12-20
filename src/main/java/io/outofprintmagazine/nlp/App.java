@@ -3,6 +3,7 @@ package io.outofprintmagazine.nlp;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -70,7 +71,7 @@ public class App {
 		options.addOption( "a", "action", true, "REQUIRED. analyze or generate. analyze requires all parameters. generate requires outputPath." );
 		options.addOption( "i", "inputPath", true, "Location for input files (.)." );
 		options.addOption( "o", "outputPath", true, "Location for output files (.)." );
-		options.addOption( "p", "parameterStore", true, "Name of parameterStore file in Properties format (parameterStore.properties)." );
+		options.addOption( "p", "parameterStore", true, "Name of parameterStore file in Properties format (oopcorenlp.properties)." );
 		options.addOption( "m", "metadata", true, "Name of metadata file in Properties format (metadata.properties)." );
 		options.addOption( "n", "annotators", true, "Name of annotator list file in text format (annotators.txt)." );
 		options.addOption( "s", "story", true, "Name of story file in text format (story.txt)." );
@@ -91,7 +92,7 @@ public class App {
 			App app = new App();
 			String outputPath = cmd.hasOption("outputPath")?cmd.getOptionValue("outputPath"):".";
 			String inputPath = cmd.hasOption("inputPath")?cmd.getOptionValue("inputPath"):".";
-			String parameterStore = cmd.hasOption("parameterStore")?cmd.getOptionValue("parameterStore"):"parameterStore.properties";
+			String parameterStore = cmd.hasOption("parameterStore")?cmd.getOptionValue("parameterStore"):"oopcorenlp.properties";
 			String metadata = cmd.hasOption("metadata")?cmd.getOptionValue("metadata"):"metadata.properties";
 			String annotators = cmd.hasOption("annotators")?cmd.getOptionValue("annotators"):"annotators.txt";
 			String story = cmd.hasOption("story")?cmd.getOptionValue("story"):"story.txt";
@@ -110,8 +111,28 @@ public class App {
  		
 	}
 	
+	private void writeProperties(String outputPath) throws IOException {
+		Properties p = new Properties();
+		p.load(getClass().getClassLoader().getResourceAsStream("io/outofprintmagazine/util/oopcorenlp.properties"));
+		String fileCorpus_Path = p.getProperty("fileCorpus_Path", "Corpora");
+		p.setProperty("fileCorpus_Path", outputPath + System.getProperty("file.separator", "/") + fileCorpus_Path);
+		p.setProperty("wordNet_location", "./data/dict");
+		p.setProperty("verbNet_location", "./data/verbnet3.3/");
+		FileWriter fout = null;
+		try {
+			fout = new FileWriter(new File(outputPath + System.getProperty("file.separator", "/") + "oopcorenlp.properties"));
+			p.store(fout, "Sample config");
+		}
+		finally {
+			if (fout != null) {
+				fout.close();
+				fout = null;
+			}
+		}
+	}
+	
 	public void generateTemplates(String outputPath) throws IOException {
-		writeFile(outputPath, "parameterStore.properties", getClass().getClassLoader().getResourceAsStream("io/outofprintmagazine/util/oopcorenlp.properties"));
+		writeProperties(outputPath);
 		writeFile(outputPath, "metadata.properties", getClass().getClassLoader().getResourceAsStream("io/outofprintmagazine/util/metadata.properties"));
 		writeFile(outputPath, "annotators.txt", getClass().getClassLoader().getResourceAsStream("io/outofprintmagazine/util/annotators.txt"));
 		writeFile(outputPath, "story.txt", getClass().getClassLoader().getResourceAsStream("io/outofprintmagazine/util/story.txt"));
