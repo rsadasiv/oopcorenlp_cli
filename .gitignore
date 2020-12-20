@@ -7,3 +7,4 @@ data/
 .project
 .settings/
 TODO.txt
+dependency-reduced-pom.xml
